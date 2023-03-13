@@ -1,0 +1,18 @@
+INSTALLATION
+------------
+
+1. Get yourself a copy of Delphi 7 from someplace. It was released in 2002, so you'll have to be creative to get it...
+
+2. Set up a VM that runs Windows XP. Delphi 7 won't work on newer operating systems.
+
+3. Install Delphi 7 on XP.
+
+4. Install the two components provided in tools/components.zip in Delphi. It's not hard to do if you know how. Otherwise get some help. Without the components you'll get an error when opening the main project because the editor control and highlighting can't be found. With some tinkering you might be able to replace the editor with a normal TMemo control.
+
+5. Compile and Run... should work flawlessly.
+
+---
+
+Note: If you intend to convert the code to a newer version of Delphi or even Free Pascal/Lazarus, you might run into the following problems:
+- The editor control/highlighter will stop working. There's an updated version of the editor but it seems to be buggy and unstable. Don't bother, switch to something else. Same for the highlighter... it doesn't run anywhere else other than Delphi 7.
+- Unicode Strings were not supported in Delphi 7. So, hardcoded ugliness such as @MyString[1] to convert a String into a PChar may not work as expected. In Deplhi 7 a 10 character word used 10 bytes.

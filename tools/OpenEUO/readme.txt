@@ -1,0 +1,1 @@
+There is no source code provided here. Simply copy uo.dll here and you have a working distribution. The OpenEUO project was axed if you remember... Lua should have been integrated into EasyUO and everything is already prepared to do just that.

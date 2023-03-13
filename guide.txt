@@ -1,0 +1,50 @@
+If you want to understand how everything works, you might want to do it in the following order:
+
+== uo ==
+
+Start with the uo folder!
+
+Here lies about everything you need to compile a new uo.dll. EasyUO used to be a separate code base, but luckily I managed to merge the two. So EasyUO is really just a very very ugly parser/GUI mounted on top of uo.dll.
+
+uoselector.pas  : Selects a client and provides simple stuff for accessing it.
+uoclidata.pas   : Holds all the memory locations for all clients.
+uoscanver.pas   : Detect the version of the currently focussed client.
+
+Based on uoselector.pas are the following separate files:
+
+uovariables.pas : Provides access to client variables.
+uoevents.pas    : Provides events and exevents (uses code caving, you'll require assembly knowledge).
+uocommands.pas  : Provides client commands (such as FindItem etc.)
+
+tiles.pas       : Used by uocommands.pas for old tile support. Originally written by Deepgreen in 2005 or so.
+
+The rest of the files (stack.pas, tables.pas, uodef.pas, uowrap.pas) are used to build the DLL.
+
+== parser ==
+
+If you haven't had enough, you can look into the parser, though I wouldn't recomment it. Run as long as you can...
+
+variables.pas   : Used to hold values of all supported variable types.
+stdcommands.pas : Simple commands that do not depend on the client.
+menu.pas        : The old menu system. Simply a wrapper for Delphi's VCL. My first attempt... seems to have worked best in the end, compared to the other desaster in OpenEUO.
+comm.pas        : Provides the "send" command.
+colorbtn.pas    : 3rd party code for color button support. Basically a normal button.
+
+---
+
+Alright, if you found the code ugly so far... sit down and get some alcohol...
+
+parser.pas      : First attempt on writing a parser around 2001ish. Impossible to change or optimize later on because of massive script breakage. This file contains all the ugliness that was in the lower files before and got pushed up. Stuff like hardcoded "N/A" strings and tons of IF-ELSE statements. This is probably the last place you should start if you want to modify anything.
+
+param.pas       : Simple class that holds strings.
+scripts.pas     : Simple class that holds scripts and provides some kind of call/return stack. There is also some notion of line infos which are used by "for" and similar commands to remember where to jump to after finishing a loop. Don't laugh! :-)
+
+Note: If you intend to copy/rewrite/optimize the parser then USE A REPOSITORY and start small, do it step by step, checking in often. There are so many side effects in the old code that you will be surprised how many of them will come back and bite you if you try to optimize them away. Honestly, I don't think it can be done... you'll probably have to copy the whole thing.
+
+---
+
+executor.pas    : Link between the GUI and the parser. Runs a thread that runs the script line by line. Pause/Start/Stop etc.
+
+== easyuo ==
+
+The "easyuo" folder contains the GUI and variable window. I've actually started rewriting this stuff but never got to complete it.
